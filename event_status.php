@@ -1,6 +1,7 @@
 <?php session_start(); 
     include_once $_SERVER['DOCUMENT_ROOT'] . '/settings.php';
     include_once $_SERVER['DOCUMENT_ROOT'] . '/database.php';
+    include_once $_SERVER['DOCUMENT_ROOT'] . '/utilities.php';
     $authorized = user_authorized($_SESSION['username']); 
 ?>
 <!DOCTYPE html>
@@ -54,32 +55,58 @@
                             </div>
                             
                             <?php
-                            if( $authorized ){
-                                echo '<div class="col text-right">';
+                            if( !$authorized ){
+                                error_return("You must be authorized to access this page.");
+                            }
+                            else {
+                                echo "<div class='col'>";
+                                
+                                $event_id = clean_input($_POST["event_id"]);
+                                if( strlen($event_id) <= 0 ){
+                                    error_return("Please enter a valid event id.");
+                                }
+                                
+                                
+
+                                echo '<div class="col">';
                                 echo '<input type="button" id="create_event" value="Create Event" class="btn btn-primary" style="background-color:red;" />';
-                                echo '</div>';
+                                echo '</div></div>';
                             }
                             ?>
-                            <div class="col text-right"><input type='button' class="btn btn-primary" style="background-color:red;" onClick='window.history.back();' value='Back' /></div>
+                            <div class="col"><input type='button' class="btn btn-primary" style="background-color:red;" onClick='window.history.back();' value='Back' /></div>
                         </div>
                         <div class="row">
-                        &nbsp;
+                            <div class="col">&nbsp;</div>
+                            <div class="col">&nbsp;</div>
+                            <div class="col">&nbsp;</div>
+                            <div class="col">&nbsp;</div>
                         </div>    
                     </div>
 
                     <div class="panel-body">
                         <h5>
                         <?php
-                            include_once $_SERVER['DOCUMENT_ROOT'] . '/database.php';
-                            error_log("Event id: " . $_POST["event_id"]);
-                            $row = get_event($_POST["event_id"]);
+                           
+                            $row = get_event($event_id);
                             echo "<div class='row'><div class='col-2'>Name:</div><div class='col'>" . $row['name'] . "</div></div>";
                             echo "<div class='row'><div class='col'>&nbsp;</div></div>";
                             echo "<div class='row'><div class='col-2'>Location:</div><div class='col'>" . $row['location'] . "</div></div>";
                             echo "<div class='row'><div class='col'>&nbsp;</div></div>";
-                            
-                            echo "<div class='row'><div class='col'><h4>Volunteer Signups</h4></div></div>";
-                            ?>
+                            echo "<div class='row'>";
+                            echo "  <div class='col'>";
+                            echo "      <form action='event_status_export.php' id='export_form' role='form' method='post'>";
+                            echo "          <input type='hidden' name='event_id' value='" . $event_id . "' />";
+                            echo "          <input type='submit' value='Export Event' />";
+                            echo "      </form>";
+                            echo "  </div>";
+                            echo "  <div class='col text-right'>";
+                            echo "      <form action='add_signup.php' id='add_signup_form' role='form' method='post'>";
+                            echo "          <input type='hidden' name='event_id' value='" . $event_id . "' />";
+                            echo "          <input type='submit' value='Add Signup' />";
+                            echo "      </form>";
+                            echo "  </div>";
+                            echo "</div>";
+                        ?>    
                             <div class='border border-dark'>
                             <h5>
                             <div class="row">

@@ -4,7 +4,7 @@
     include_once $_SERVER['DOCUMENT_ROOT'] . '/database.php';
     $authorized = user_authorized($_SESSION['username']); 
     header("Content-type: text/plain");
-    header("Content-Disposition: attachment; filename=signup_export.txt");
+    header("Content-Disposition: attachment; filename=signup_export.csv");
 
     print("Name, Phone, Email, Email2, Nbr of Volunteers\n");
 

@@ -31,6 +31,21 @@
                             <div class="col">
                                 <h3 class="panel-title">Event Volunteers</h3>
                             </div>
+                            <div class="col">
+                                <?php
+                                include_once $_SERVER['DOCUMENT_ROOT'] . '/settings.php';
+                                include_once $_SERVER['DOCUMENT_ROOT'] . '/database.php';
+                                include_once $_SERVER['DOCUMENT_ROOT'] . '/utilities.php';
+                                $email = clean_input($_POST["email"]);
+                                if( strlen($email) <= 0 ){
+                                    error_return("Please enter a valid email address.");
+                                }
+                                echo "<form action='my_events_export.php' id='export_form' role='form' method='post'>";
+                                echo "<input type='hidden' name='email' value='" . $email . "' />";
+                                echo "<div class='col-2 align-self-end'><input type='submit' value='Export Signups' /></div>";
+                                echo "</form></div>";
+                                ?>
+                            </div>
                         </div>
                     </div>
                     <div class="panel-body">
@@ -56,13 +71,7 @@
                             </div>
                         </div>
                         <?php
-                            include_once $_SERVER['DOCUMENT_ROOT'] . '/settings.php';
-                            include_once $_SERVER['DOCUMENT_ROOT'] . '/database.php';
-                            include_once $_SERVER['DOCUMENT_ROOT'] . '/utilities.php';
-                            $email = clean_input($_POST["email"]);
-                            if( strlen($email) <= 0 ){
-                                error_return("Please enter a valid email address.");
-                            }
+                            
 
                             $res = get_email_signups($email);
                             while ($row = mysqli_fetch_array($res))

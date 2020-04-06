@@ -4,8 +4,8 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/settings.php';
 function send_events_email( $to, $subject, $message ){
     error_log("Sending email to: " . $to . " with subject " . $subject . " and message " . $message);
     // Create email headers
-    $headers = "From: " . get_sender_email() . "\r\n";
-    $headers .= "Reply-To: " . get_sender_email() . "\r\n";
+    $headers = "From: ". get_sender_name() . " <" . get_sender_email() . "> \r\n";
+    $headers .= "Reply-To: " . get_sender_replyto() . "\r\n";
     $headers .= "X-Mailer: PHP/" . phpversion() . "\r\n";
     $headers .= "MIME-Version: 1.0\r\n";
     $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";

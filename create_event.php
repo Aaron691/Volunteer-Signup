@@ -1,12 +1,15 @@
 <?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
+<style>
+
+</style>
 <head>
     <title>Project 691 - Create Event</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
@@ -167,7 +170,9 @@
                                                 <th width="10%">Start Date</th>
                                                 <th width="10%">From</th>
                                                 <th width="10%">To</th>
-                                                <th width="10%">Reminder</th>
+                                                <th width="10%">
+                                                    <a href="#" data-toggle="tooltip" title="Number of days prior to event a reminder should be sent.">Reminder</a>
+                                                </th>
                                                 <th width="10%">Delete</th>
                                             </tr>
                                         </table>
@@ -199,5 +204,8 @@
     document.getElementById("logout").onclick = function () {
         location.href = "logout.php";
     };
+    $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip();   
+    });
   </script>
 </html>
