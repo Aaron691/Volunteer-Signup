@@ -50,6 +50,12 @@
                     </div>
                     <div class="panel-body">
                         <h5>
+                        <?php
+                        $res = get_email_signups($email);
+                        if( $res->num_rows <= 0 ){
+                            error_return("No events were found for that email address.");    
+                        }
+                        ?>
                         <div class="row">
                             <div class="col-2">
                                 <h4><b><u>Name</u></b>
@@ -73,7 +79,7 @@
                         <?php
                             
 
-                            $res = get_email_signups($email);
+                            
                             while ($row = mysqli_fetch_array($res))
                             {
                                 error_log("Row: ");
